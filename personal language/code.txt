@@ -1,0 +1,213 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <string>
+#include <fstream>
+#include "windows.h"
+#include <conio.h>
+using namespace std;
+
+template <typename T> void showarr(T arr[], int length) {
+	cout << "Массив: \n[";
+	for (int i = 0; i < length; i++)
+		cout << arr[i] << ", ";
+	cout << "\b\b]\n";
+}
+int searchindex(int arr[], int length, int n, int begin = 0) {
+	for (int i = begin; i < length; i++) 
+		if (arr[i] == n) {
+			cout << "Первое вхождение элемента \"" << n << "\" под индексом -> ";
+			return i;
+		}
+	return -1;
+}
+int searchlastindex(int arr[], int length, int n, int begin = 0) {
+	for (int i = length - 1; i > 0; i--)
+		if (arr[i] == n) {
+			cout << "Последнее вхождение элемента \"" << n << "\" под индексом -> ";
+			return i;
+		}
+	return -1;
+}
+int maxel(int arr[], int length) {
+	cout << "Максимальное число массива = ";
+	int max = arr[0];
+	for (int i = 0; i < length; i++) {
+		if (arr[i] > max)
+			max = arr[i];
+	}
+	return max;
+}
+int minel(int arr[], int length) {
+	cout << "Минимальное число массива = ";
+	int min = arr[0];
+	for (int i = 0; i < length; i++) {
+		if (arr[i] < min)
+			min = arr[i];
+	}
+	return min;
+}
+int meanvalue(int arr[], int length) {
+	int mean = 0;
+	for (int i = 0; i < length; i++) 
+		mean += arr[i];
+	cout << "Среднее арифметическое массива = ";
+	return mean / length;
+}
+void range(int arr[], int length, int begin, int end) {
+	cout << "Элементы в диапазоне от " << begin << " до " << end << ": ";
+	for (int i = 0; i < length; i++)
+		if (arr[i] >= begin && arr[i] <= end)
+			cout << arr[i] << ", ";
+	cout << "\b\b.";
+}
+int counter(int arr[], int length, int n) {
+	int count = 0;
+	cout << "Количество вхождений элемента " << n << " в массив = ";
+	for (int i = 0; i < length; i++)
+		if (arr[i] == n)
+			count++;
+	return count;
+}
+
+int main() {
+	setlocale(LC_ALL, "ru");
+	srand(time(NULL));
+
+	cout << "Демонстрация персонального языка";
+	cout << "Часть 1. Массивы и функции";
+
+	int n, beg,end; 
+	const int length = 100;
+	int arr[length];
+	for (int i = 0; i < length; i++) 
+		arr[i] = rand() % 200 - 100 + 1;
+		showarr(arr, length);
+		cout << endl;
+		cout << "Введите искомый элемент: ";
+		cin >> n;
+		cout << searchindex(arr, length, n);
+		cout << "\n";
+		cout << searchlastindex(arr, length, n);
+		cout << endl;
+		cout << maxel(arr, length);
+		cout << endl;
+		cout << minel(arr, length);
+		cout << endl;
+		cout << meanvalue(arr, length);
+		cout << endl;
+		cout << "Введите начало диапазона: ";
+		cin >> beg;
+		cout << "Введите конец диапазона: ";
+		cin >> end;
+		range(arr, length, beg, end);
+		cout << endl;
+		cout << counter(arr, length, n);
+		cout << "\n\n";
+
+		cout << "Часть 2. Структура if else \\ Структура switch case \\ Строки\n\n";
+		
+		int a;
+		do {
+			cout << "1 - Глабель, 2 - Мемомагнетика, 3 - Вагабунд\n";
+			cout << "Выберите одно из трёх слов, существование которых не даёт мне покоя, чтобы увидеть значение!\n";
+			cin >> a;
+			if (a == 1)
+				cout << "Глабель - пространство между бровями\n\n";
+			else
+				if (a == 2)
+					cout << "Мемомагнетика - коллекционирование сувенирных магнитов\n\n";
+				else
+					if (a == 3)
+						cout << "Вагабунд - человек, не имеющий постоянного местожительства и определенных занятий и бродящий из одного места в другое.\n\n";
+					else
+						cout << "Ошибка. Попробуйте снова.\n";
+		} while (a < 1 || a > 3);
+
+		
+		cout << "Праздники первой недели июня:\n";
+		int b;
+		do {
+			cout << "Введите день, чтобы узнать праздник: ";
+			cin >> b;
+			switch (b) {
+			case 1: cout << "Международный день защиты детей\n"; break;
+			case 2: cout << "День здорового питания и отказа от излишеств в еде\n"; break;
+			case 3: cout << "Всемирный день велосипеда\n"; break;
+			case 4: cout << "Международный день спойлеров\n"; break;
+			case 5: cout << "Всемирный день окружающей среды\n"; break;
+			case 6: cout << "Пушкинский день\n"; break;
+			case 7: cout << "День краудфандинга\n"; break;
+			default: cout << "В неделе семь дней! Попробуйте снова.\n"; break;
+			}
+		} while (b < 1 || b > 7);
+		
+		cout << "\n\nИгра в Memory. Запомните строчку и запишите её ->.\n";
+		string str = "Peter Piper picked a peck of pickled peppers";
+		cout << str;
+		cout << "\n\nДля продолжения нажмите любую клавишу. \n(введите again - чтобы показать надпись снова, out - чтобы выйти)\n";
+		string str2; 
+		cin.ignore();
+		while (str2 != str) {
+			getline(cin, str2);
+			system("cls");
+			cout << "enter: ";
+			if (str2 == "again")
+				cout << str;
+			if (str2 == "out")
+				break;
+		}
+		cout << "Спасибо за игру!\n\n";
+
+		cout << "Часть 3. fstream \\ try - catch\n\n";
+
+		string path = "file.txt";
+		fstream fs;
+		fs.open(path,fstream::in | fstream::out | fstream::app);
+
+		if (!fs.is_open()) {
+			cout << "Ошибка открытия файла.";
+		}
+
+		else {
+			bool var;
+			string sms;
+			cout << "Файл открыт.\n";
+			cout << "Нажмите 0 для записи сообщения в файл\n";
+			cout << "Нажмите 1 для считывания сообщений из файла\n";
+			cin >> var;
+
+			if (var == 0) {
+				cout << "Введите ваше сообщение: ";
+				cin >> sms;
+				fs << sms << endl;
+			}
+			if (var == 1)
+				while (!fs.eof()) {
+					sms = "";
+					fs >> sms;
+					cout << sms << endl;
+				}
+
+		}
+		fs.close();
+
+		ifstream fin;
+		fin.exceptions(ifstream::badbit | ifstream::failbit);
+
+		try {
+			cout << "Попытка открыть файл." << endl;
+			fin.open("file.tx");
+			cout << "Файл успешно открыт.";
+		}
+		catch (const ifstream::failure& ex)
+		{
+			cout << ex.what() << endl;
+			cout << ex.code() << endl;
+			cout << "Ошибка открытия файла.\n";
+		}
+
+	
+
+	return 0;
+}
